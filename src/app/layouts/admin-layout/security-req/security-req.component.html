@@ -468,13 +468,13 @@
 -->
 
   </div>
-  <div *ngIf="!auditService.audit_is_closing()">
-    <button style="margin-left: 350px;margin-right: 10px" (click)="submit()"  class="btn-info btn-fill btn  "> Diagrams</button>
-    <button  (click)="close_audit()"  class="btn-danger btn-fill btn  "> close_audit</button>
+  <div class="text-center"  *ngIf="!auditService.audit_is_closing()">
+    <button style="margin-right: 10px" (click)="submit()"  class="btn-info btn-fill btn  "> Diagrams</button>
+    <button  (click)="close_audit()"  class="btn-danger btn-fill btn  "> Close Audit</button>
 
   </div>
-  <div *ngIf="auditService.audit_is_closing()" >
-    <button style="margin-left: 430px;margin-right: 10px" (click)="submit()"  class="btn-info btn-fill btn  "> Diagrams</button>
+  <div class="text-center" *ngIf="auditService.audit_is_closing()" >
+    <button (click)="submit()"  class="btn-info btn-fill btn   "> Diagrams</button>
 
   </div>
 

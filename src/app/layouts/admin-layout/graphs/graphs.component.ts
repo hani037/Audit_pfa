@@ -103,6 +103,8 @@ export class GraphsComponent implements OnInit {
     let y=40;
     let pdf = new jsPDF();
     pdf.rect(5, 5, pdf.internal.pageSize.width - 10, pdf.internal.pageSize.height - 10, 'S');
+    let width = pdf.internal.pageSize.getWidth();
+    let height = pdf.internal.pageSize.getHeight();
 
     pdf.setFontSize(28);
     pdf.setTextColor(6,12,102);
@@ -303,6 +305,7 @@ export class GraphsComponent implements OnInit {
     pdf.setTextColor(151,145,233);
     for (let i=0;i<this.screenshot.length;i++){
       if(i==0){
+
         pdf.text('MSTG-'+this.screenshot[i]._id.family_name+'-'+this.screenshot[i]._id.requ_rank, 85, 30);
 
       }
@@ -314,13 +317,15 @@ export class GraphsComponent implements OnInit {
 
             if (y + 100 > 295) {
               pdf.addPage();
+              pdf.setFontSize(17);
+              pdf.setTextColor(151,145,233);
               pdf.text('MSTG-'+this.screenshot[i]._id.family_name+'-'+this.screenshot[i]._id.requ_rank, 85, 25);
               pdf.rect(5, 5, pdf.internal.pageSize.width - 10, pdf.internal.pageSize.height - 10, 'S');
               y = 35;
 
             }
 
-            pdf.addImage(result, 'JPEG', 10, y, 180, 100);
+            pdf.addImage(result, 'JPEG', 13, y, width-26, 100);
             y+=110;
 
             pdf.setFontSize(17);
@@ -328,49 +333,60 @@ export class GraphsComponent implements OnInit {
             pdf.text('title:', 15, y );
             pdf.setFontSize(13);
             pdf.setTextColor(42,42,42);
-            pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].title, 49, y );
-            y+=15;
+            pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].title, 51, y );
+            y+=12;
             pdf.setFontSize(17);
             pdf.setTextColor(0,0,0);
             pdf.text('description:' , 15, y);
             pdf.setFontSize(13);
             pdf.setTextColor(42,42,42);
-            pdf.text( this.screenshot[i].ScreenshotsOfOneRequRes[j].description, 49, y);
-            y+=15;
+            pdf.text( this.screenshot[i].ScreenshotsOfOneRequRes[j].description, 51, y);
+            y+=12;
             pdf.setFontSize(17);
             pdf.setTextColor(0,0,0);
             pdf.text('risk:' , 15, y);
             pdf.setFontSize(13);
             pdf.setTextColor(42,42,42);
-            pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].risk, 49, y);
-            y+=15;
-            pdf.setFontSize(17);
-            pdf.setTextColor(0,0,0);
-            pdf.text('tools:' , 15, y);
-            pdf.setFontSize(13);
-            pdf.setTextColor(42,42,42);
-            pdf.text( this.screenshot[i].ScreenshotsOfOneRequRes[j].tools, 49, y);
-            y+=15;
-            pdf.setFontSize(17);
-            pdf.setTextColor(0,0,0);
-            pdf.text('systems:', 15, y);
-            pdf.setFontSize(13);
-            pdf.setTextColor(42,42,42);
-            pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].systems, 49, y);
-            y+=15;
-            pdf.setFontSize(17);
-            pdf.setTextColor(0,0,0);
-            pdf.text('references:' , 15, y);
-            pdf.setFontSize(13);
-            pdf.setTextColor(42,42,42);
-            pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].references, 49, y);
-            y+=15;
-            pdf.setFontSize(17);
+            pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].risk, 51, y);
+            y+=12;
+            for (let k=0;k<this.screenshot[i].ScreenshotsOfOneRequRes[j].tools.length;k++){
+              let h=k+1;
+              pdf.setFontSize(17);
+              pdf.setTextColor(0,0,0);
+              pdf.text('tools '+h+':' , 15, y);
+              pdf.setFontSize(13);
+              pdf.setTextColor(42,42,42);
+              pdf.text( this.screenshot[i].ScreenshotsOfOneRequRes[j].tools[k], 51, y);
+              y+=12;
+            }
+            for (let k=0;k<this.screenshot[i].ScreenshotsOfOneRequRes[j].systems.length;k++){
+              let h=k+1;
+              pdf.setFontSize(17);
+              pdf.setTextColor(0,0,0);
+              pdf.text('systems '+h+':', 15, y);
+              pdf.setFontSize(13);
+              pdf.setTextColor(42,42,42);
+              pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].systems[k], 51, y);
+              y+=12;
+            }
+
+            for (let k=0;k<this.screenshot[i].ScreenshotsOfOneRequRes[j].references.length;k++) {
+              let h=k+1;
+              pdf.setFontSize(17);
+              pdf.setTextColor(0,0,0);
+              pdf.text('references '+h+':' , 15, y);
+              pdf.setFontSize(13);
+              pdf.setTextColor(42,42,42);
+              pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].references[k], 51, y);
+              y+=12;
+
+            }
+             pdf.setFontSize(17);
             pdf.setTextColor(0,0,0);
             pdf.text('remediation:' , 15, y);
             pdf.setFontSize(13);
             pdf.setTextColor(42,42,42);
-            pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].remedation, 49, y);
+            pdf.text(this.screenshot[i].ScreenshotsOfOneRequRes[j].remedation, 51, y);
 
 
           })
@@ -388,8 +404,8 @@ export class GraphsComponent implements OnInit {
     }
     pdf.addPage();
     pdf.rect(5, 5, pdf.internal.pageSize.width - 10, pdf.internal.pageSize.height - 10, 'S');
-    pdf.addImage(this.dataURL,'JPEG', 20, 20);
-    pdf.addImage(this.dataURL2,'JPEG', 20, 140);
+    pdf.addImage(this.dataURL,'JPEG', 20, 20,width-40,(height/2)-50);
+    pdf.addImage(this.dataURL2,'JPEG', 20, (height/2)-10,width-40,(height/2)-50);
     let head = [['', 'P', 'F', 'N/A','%']];
     let body = [];
     for (let i=0;i<this.data.test.length;i++){

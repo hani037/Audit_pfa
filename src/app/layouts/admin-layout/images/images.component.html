@@ -1,6 +1,6 @@
 
 <mat-dialog-content  >
-  <div style="position: absolute;top: 32px;right: 370px" *ngIf="imageUrl" class="column">
+  <div  style="position: absolute;top: 32px;"  *ngIf="imageUrl&&sel!==2" class="column text-center">
     <figure class="image is-128x128">
       <button *ngIf="_edit==true" style="position: absolute;right: 0px;color: #000000;padding: 0px" class="btn btn-secondary ">      <i (click)="input.click()"  class="fas fa-edit fa-3x "></i>
       </button>
@@ -9,7 +9,7 @@
       <img  height="150" width="150" [src]="imageUrl" />
     </figure>
   </div>
-  <div  class="card card-3">
+  <div *ngIf="sel!==2"  class="card card-3">
 
     <div class="card-heading"></div>
     <div class="card-body">
@@ -100,71 +100,78 @@
   </div>
     <div style="width:450px;background:rgba(21, 39, 43, 0.8); "  *ngIf="sel==2"  >
 
-        <div style="position: absolute;top: 300px;left: 140px" >
+        <div style="position: absolute;top:50%;left: 10%"  >
           <i (click)="left()" style="color: whitesmoke" [ngStyle]="{'cursor':screenshots.Screenshot.length >1 ? 'pointer' : '' }"   class="  fa fa-angle-left fa-5x "></i>
         </div>
 
 
-            <div  style="position: absolute;top: 90px;left: 405px" class="container">
-              <img style="width: 520px;height: 300px" [src]="'http://localhost:8050/'+image.path" alt="'http://localhost:8050/'+image.path" >
-              <div style="position: absolute;bottom: 0px;left: 370px">
-                <button *ngIf="!auditService.audit_is_closing()" (click)="edit()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #00004d" class="  btn btn-secondary" >edit</button>
-                <button *ngIf="!auditService.audit_is_closing()" mat-dialog-close (click)="delete()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #a20000" class="  btn btn-danger" >delete</button>
+            <div>
+              <div>
+                <figure class="image is-128x128 container">
+                  <img  style="width: 520px;height: 300px" [src]="'http://localhost:8050/'+image.path" alt="'http://localhost:8050/'+image.path" />
+                  <div style="position: absolute;bottom: 0;right: 0">
+                    <button *ngIf="!auditService.audit_is_closing()" (click)="edit()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #00004d;" class="  btn btn-secondary" >edit</button>
+                    <button *ngIf="!auditService.audit_is_closing()" mat-dialog-close (click)="delete()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #a20000" class="  btn btn-danger" >delete</button>
+
+                  </div>
+
+                </figure>
               </div>
+              <div style="margin-bottom: 0px" >
+                <div >
+
+                  <table >
+                    <tr>
+                      <th >title</th>
+                      <td>{{image.title}}</td>
+
+                    </tr>
+                    <tr>
+                      <th >description</th>
+                      <td >{{image.description}} </td>
+
+                    </tr>
+                    <tr>
+                      <th >risk</th>
+                      <td >{{image.risk}}</td>
+
+                    </tr>
+                    <tr>
+                      <th >tools</th>
+                      <td>{{image.tools}}</td>
+                    </tr>
+                    <tr>
+                      <th >systems</th>
+                      <td >{{image.systems}}</td>
+
+                    </tr>
+                    <tr>
+                      <th >references</th>
+                      <td >{{image.references}}</td>
+
+                    </tr>
+                    <tr>
+                      <th >remediation</th>
+                      <td >{{image.remedation}}</td>
+
+                    </tr>
+
+
+                  </table>
+                </div>
+
+
+              </div>
+
             </div>
 
 
-              <div style="position: absolute;top: 300px;right: 140px" >
+              <div style="position: absolute;top:50%;right: 10%" >
                 <i [ngStyle]="{'cursor':screenshots.Screenshot.length >1 ? 'pointer' : '' }" (click)="right()" style="color: whitesmoke"   class="  fa fa-angle-right fa-5x "></i>
 
               </div>
 
-      <div style="margin-top: 145px;margin-bottom: 0px" >
-        <div >
-
-          <table >
-            <tr>
-              <th >title</th>
-              <td>{{image.title}}</td>
-
-            </tr>
-            <tr>
-              <th >description</th>
-              <td >{{image.description}} </td>
-
-            </tr>
-            <tr>
-              <th >risk</th>
-              <td >{{image.risk}}</td>
-
-            </tr>
-            <tr>
-              <th >tools</th>
-              <td>{{image.tools}}</td>
-            </tr>
-            <tr>
-              <th >systems</th>
-              <td >{{image.systems}}</td>
-
-            </tr>
-            <tr>
-              <th >references</th>
-              <td >{{image.references}}</td>
-
-            </tr>
-            <tr>
-              <th >remediation</th>
-              <td >{{image.remedation}}</td>
-
-            </tr>
-
-
-          </table>
-        </div>
-
-
-      </div>
-      <!-- <img *ngFor="let image of screenshots.Screenshot" class="images" [src]="'http://localhost:8050/'+image.path"/>
+            <!-- <img *ngFor="let image of screenshots.Screenshot" class="images" [src]="'http://localhost:8050/'+image.path"/>
        -->
 
         </div>
