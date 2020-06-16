@@ -12,7 +12,25 @@ export interface level {
   requ:
     {requ_id: string, level: string, requ_rank: number, requ_desctiption:string}[]
 }
+export interface fail_image {
+  _id:{
+    audit_id: string,
+    title:string;
+    description: string,
+    family_name: string[],
+    family_rank: number,
+    references: string,
+    remedation: string,
+    requ_rank: number,
+    risk: string,
+    screenshot_id: string,
+    screenshot: string,
+    systems: string[],
+    tools:string[],
+    cvss:string,
+}
 
+}
 export interface photo {
   _id:{
     family_name: string,
@@ -183,6 +201,9 @@ export class AuditService {
   }
   public get_screenshots(){
     return  this.http.get<photo[]>(`http://localhost:8050/screenshotGrouped/${this.get_audit().id}`);
+  }
+  public get_fail_screenshots(){
+    return  this.http.get<fail_image[]>(`http://localhost:8050/screenshotFailOnly/${this.get_audit().id}`);
   }
   public delete(){
     localStorage.removeItem('audit');

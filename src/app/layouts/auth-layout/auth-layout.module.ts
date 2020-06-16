@@ -8,17 +8,21 @@ import { HttpClientModule } from '@angular/common/http';
 import {AuthLayoutComponent} from './auth-layout.component'
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
+import { RapportComponent } from './rapport/rapport.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(AuthLayoutRoutes),
-    FormsModule,
-    HttpClientModule,
-    NgbModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(AuthLayoutRoutes),
+        FormsModule,
+        HttpClientModule,
+        NgbModule,
+        MatProgressSpinnerModule
+    ],
   declarations: [
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    RapportComponent
   ],
   bootstrap:[AuthLayoutComponent],
 })

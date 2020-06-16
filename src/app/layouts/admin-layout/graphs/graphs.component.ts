@@ -11,6 +11,7 @@ import {result} from "../security-req/security-req.component";
 import {audit} from "../history/history.component";
 import {RequestService} from "../security-req/request.service";
 import {score} from "../security-req/score.model";
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-graphs',
@@ -25,7 +26,7 @@ export class GraphsComponent implements OnInit {
   screenshot:photo[];
   private sel=false;
   constructor(@Inject(MAT_DIALOG_DATA) public data:{graph:result[],test:test[],pass:result[],fail:result[]},private requestService:RequestService
-              ,private auditService:AuditService) {
+              ,private auditService:AuditService,private route:Router) {
 
   }
 

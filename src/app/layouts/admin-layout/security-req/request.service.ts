@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
-import {AuditService} from '../dashbord/audit.service';
+import {AuditService, photo} from '../dashbord/audit.service';
 import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {test} from './test.model';
 import {score} from './score.model';
 import {map} from 'rxjs/operators';
-import {screenshot} from '../images/images.component';
+import {image, screenshot} from '../images/images.component';
 import {AuthService} from "../../auth-layout/shared/auth.service";
 import {audit} from "../history/history.component";
-
+export interface cvss {
+  High: number,
+  Information: number,
+  Low: number,
+  Medium: number,
+  Total: number,
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -86,6 +92,29 @@ export class RequestService {
      this.http.put<{}>(`http://localhost:8050/updateAudit/${id}`,{Closing_Date:date}).subscribe(date=>{
        this.auditService.close_date();
      });
+
+  }
+
+    delete_noscreenshot(_id: string) {
+      return this.http.delete(`http://localhost:8050/deletewithoutscreenshot/${_id}`).subscribe();
+
+    }
+
+  delete_evidences_by_requ(id: any) {
+    return  this.http.get<screenshot>(`http://localhost:8050/screenshotByRequRes/${id}`).subscribe(data=>{
+    for(let i=0;i<data.Screenshot.length;i++){
+      if(!data.Screenshot[i].path){
+        this.delete_noscreenshot(data.Screenshot[i]._id)
+      }else {
+        this.delete_screenshot(data.Screenshot[i]._id)
+      }
+    }
+    });
+
+  }
+
+  getcvss() {
+    return this.http.get<cvss[]>(`http://localhost:8050/cvss/${this.auditService.get_audit().id}`);
 
   }
 }

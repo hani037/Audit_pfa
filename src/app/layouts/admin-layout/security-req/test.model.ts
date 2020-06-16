@@ -7,7 +7,7 @@ export class test {
     requ_rank: number,
     requ_desctiption: string,
     requ_procedure: string[]
-    requRes_pass: string
+    requRes_pass: boolean
     requRes_comment:string
   }[];
   public pass:number;
