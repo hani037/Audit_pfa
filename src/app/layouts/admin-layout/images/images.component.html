@@ -169,7 +169,7 @@
             <div>
               <div *ngIf="image.path">
                 <figure class="image is-128x128 container">
-                  <img  style="width: 520px;height: 300px" [src]="'http://localhost:8050/'+image.path" alt="'http://localhost:8050/'+image.path" />
+                  <img  style="width: 520px;height: 300px" [src]="baseUrl+image.path" [alt]="baseUrl+image.path" />
                   <div style="position: absolute;bottom: 0;right: 0">
                     <button *ngIf="!auditService.audit_is_closing()" (click)="edit()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #00004d;" class="  btn btn-secondary" >edit</button>
                     <button *ngIf="!auditService.audit_is_closing()" mat-dialog-close (click)="delete()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #a20000" class="  btn btn-danger" >delete</button>

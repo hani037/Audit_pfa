@@ -126,10 +126,14 @@ export class SecurityReqComponent implements OnInit {
           this.requestService.ischanged.next("true");
         });
       }else {
+
         this.gettest();
       }
-    }
-
+    }else {
+      this.requestService.update_pass($event.srcElement.value, id).subscribe(data => {
+        this.gettest();
+      });
+      }
 
 
   }
@@ -170,7 +174,12 @@ export class SecurityReqComponent implements OnInit {
   close_audit() {
     if(confirm("Are you sure to close the audit ")) {
 
-      this.requestService.close_audit();
+      this.requestService.close_audit().subscribe(date=>{
+        this.auditService.close_date();
+        this.MatSnack.open( 'Closed', 'cancel', {
+          duration: 1500
+        });
+      });
     }
   }
 }

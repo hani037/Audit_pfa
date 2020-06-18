@@ -5,6 +5,7 @@ import {RequestService} from '../security-req/request.service';
 import {HttpClient} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuditService} from "../dashbord/audit.service";
+import {environment} from "../../../../environments/environment";
 // tslint:disable-next-line:class-name
 export interface screenshot {
   count:number,
@@ -54,6 +55,7 @@ export interface image {
 })
 export class ImagesComponent implements OnInit {
   is_without_image=false;
+  baseUrl = environment.baseUrl;
   screenshots:screenshot;
   images;
   image:image;
@@ -114,7 +116,7 @@ export class ImagesComponent implements OnInit {
       this.change_image=true;
       const formData = new FormData();
         formData.append('screenshot', this.images);
-      this.http.put(`http://localhost:8050/screenshotOnlyImage/${this.image._id}`, formData).subscribe();
+      this.http.put(this.baseUrl +`screenshotOnlyImage/${this.image._id}`, formData).subscribe();
 
     };
 
@@ -172,18 +174,18 @@ export class ImagesComponent implements OnInit {
         formData.append(`tools[${i}]`, this.tool.value[i]);
       }
     }
-    this.http.post('http://localhost:8050/screenshot', formData,
+    this.http.post(this.baseUrl+'screenshot', formData,
       {responseType: 'text'}).subscribe(async data=>{
         console.log(data);
         f.reset();
         this.reset();
         this.images=null;
       // tslint:disable-next-line:triple-equals
-        if(data=='uploaded'){
+
           this.MatSnack.open( 'uploaded', 'cancel', {
             duration: 1500
           });
-        }
+
       }
     );
   }
@@ -240,7 +242,7 @@ export class ImagesComponent implements OnInit {
     this.sel=1;
     this._edit=true;
     if (this.image.path){
-      this.imageUrl='http://localhost:8050/'+this.image.path;
+      this.imageUrl=this.baseUrl+this.image.path;
 
     }
   }
@@ -374,39 +376,39 @@ export class ImagesComponent implements OnInit {
         delete body.cvss;
       }
 
-      this.http.post('http://localhost:8050/noscreenshot',body,
+      this.http.post(this.baseUrl+'noscreenshot',body,
         {responseType: 'text'}).subscribe(async data => {
           console.log(data);
           f.reset();
           this.reset();
           this.images = null;
           // tslint:disable-next-line:triple-equals
-          if (data == 'uploaded') {
+
             this.MatSnack.open('uploaded', 'cancel', {
               duration: 1500
             });
-          }
+
         }
       );
     }
   }
 
   update_title(title: string,id) {
-    this.http.put(`http://localhost:8050/screenshotUpdateTitle/${id}`,{title:title}).subscribe();
+    this.http.put(this.baseUrl+`screenshotUpdateTitle/${id}`,{title:title}).subscribe();
   }
 
   update_description(title:string, _id: string) {
-    this.http.put(`http://localhost:8050/screenshotUpdateDescription/${_id}`,{description:title}).subscribe();
+    this.http.put(this.baseUrl+`screenshotUpdateDescription/${_id}`,{description:title}).subscribe();
 
   }
   update_Remedation(title:string, _id: string) {
-    this.http.put(`http://localhost:8050/screenshotUpdateRemedation/${_id}`,{remedation:title}).subscribe();
+    this.http.put(this.baseUrl+`screenshotUpdateRemedation/${_id}`,{remedation:title}).subscribe();
   }
   update_Risk(title:string, _id: string) {
-    this.http.put(`http://localhost:8050/screenshotUpdateRisk/${_id}`,{risk:title}).subscribe();
+    this.http.put(this.baseUrl+`screenshotUpdateRisk/${_id}`,{risk:title}).subscribe();
   }
   update_Cvss(title:string, _id: string) {
-    this.http.put(`http://localhost:8050/screenshotUpdateCvss/${_id}`,{cvss:title}).subscribe();
+    this.http.put(this.baseUrl+`screenshotUpdateCvss/${_id}`,{cvss:title}).subscribe();
   }
   update_tools(title:string[], _id: string) {
     let tools = [];
@@ -419,7 +421,7 @@ export class ImagesComponent implements OnInit {
 
       }
     }
-    this.http.put(`http://localhost:8050/screenshotUpdateTools/${_id}`,{tools:tools}).subscribe();
+    this.http.put(this.baseUrl+`screenshotUpdateTools/${_id}`,{tools:tools}).subscribe();
   }
   update_systems(title:string, _id: string) {
     let systems = [];
@@ -432,7 +434,7 @@ export class ImagesComponent implements OnInit {
 
       }
     }
-    this.http.put(`http://localhost:8050/screenshotUpdateSystems/${_id}`,{systems:systems}).subscribe();
+    this.http.put(this.baseUrl+`screenshotUpdateSystems/${_id}`,{systems:systems}).subscribe();
   }
   update_references(title:string, _id: string) {
     let reference = [];
@@ -445,13 +447,13 @@ export class ImagesComponent implements OnInit {
 
       }
     }
-    this.http.put(`http://localhost:8050/screenshotUpdateReferences/${_id}`,{references:reference}).subscribe();
+    this.http.put(this.baseUrl+`screenshotUpdateReferences/${_id}`,{references:reference}).subscribe();
   }
 
   delete_only_image(_id: string) {
     if(confirm("Are you sure to delete the image ")) {
       this.imageUrl = null;
-      this.http.delete(`http://localhost:8050/screenshotDeleteImage/${_id}`).subscribe();
+      this.http.delete(this.baseUrl+`screenshotDeleteImage/${_id}`).subscribe();
     }
 
   }

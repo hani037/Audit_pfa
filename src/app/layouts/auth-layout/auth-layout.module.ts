@@ -10,6 +10,7 @@ import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import { RapportComponent } from './rapport/rapport.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {HighchartsChartModule} from "highcharts-angular";
 @NgModule({
     imports: [
         CommonModule,
@@ -17,7 +18,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
         FormsModule,
         HttpClientModule,
         NgbModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        HighchartsChartModule
     ],
   declarations: [
     LoginComponent,

@@ -2,7 +2,7 @@
 <div style="margin-bottom: 0" class="content"   >
 
   <!--    Change the image source '/images/default.jpg' with your favourite image.     -->
-  <h1 style="color: rgb(255,255,255)" *ngIf="sel===true"> <u style="color: rgba(255,255,255,0.73);text-shadow: 1px 1px ">level of verification: {{selected_level}} </u> </h1>
+  <h1 style="color: rgb(255,255,255);text-shadow: 1px 1px " *ngIf="sel===true"> level of verification: {{selected_level}} </h1>
 
 
   <!--   You can change the black color for the filter with those colors: blue, green, red, orange       -->
@@ -27,7 +27,7 @@
       </div>
     </div>
     <h4 mat-dialog-title style="color: #bbbae9;margin-bottom: 10px;margin-top: 10px" class="text-center">
-      <u > {{title}}</u>    </h4>
+      {{title}}  </h4>
     <div  style="display: flex">
       <div  style="flex: 1;margin-right: 10px;margin-top: auto;margin-bottom: auto">   <i   (click)="left()" style="color: whitesmoke;cursor: pointer"   class=" fa fa-angle-left fa-5x "></i>
       </div>

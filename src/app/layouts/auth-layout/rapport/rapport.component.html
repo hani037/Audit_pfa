@@ -11,7 +11,7 @@
   </script>
 
 <mat-spinner style="margin-left: auto;margin-right: auto" *ngIf="sel==false" ></mat-spinner>
-<div #hani style="background: white">
+<div  style="background: white">
 
   <div *ngIf="sel==true"  style="margin-right: 20px;margin-left: 20px;background: white">
 
@@ -184,12 +184,13 @@
     </tr>
   </table>
 </div>
-<div >
-  <div id="chartContainer" style="width:640px; height: 400px;margin-right: auto;margin-left: auto;margin-bottom: 20px;background:white"></div>
+
+<div   >
+  <div *ngIf="cvss.length>0" id="chartContainer" style="width:640px; height: 400px;margin-right: auto;margin-left: auto;margin-bottom: 20px;background:white"></div>
 </div>
 <div *ngIf="sel==true"  style="margin-left: 20px;margin-right:20px;background: white">
 
-  <table class="section-table">
+  <table *ngIf="cvss.length>0" class="section-table">
     <tr>
       <td colspan="3">
         <h1 class="allcaps" style="page-break-before: always;color: black">Vulnerability Summary</h1>
@@ -199,21 +200,20 @@
       <td>
         <table class="summary-table">
           <col style="width:10%">
-          <col style="width:60%">
-          <col style="width:10%">
-          <col style="width:10%">
+          <col style="width:20%">
+          <col style="width:70%">
+
 
           <tr>
             <th>id</th>
             <th>title</th>
-            <th style="width: 55%;">Systems</th>
+            <th width="70%">Systems</th>
 
           </tr>
           <tr *ngFor="let screen of screenshot">
             <td >MSTG-{{screen._id.family_name}}-{{screen._id.requ_rank}}</td>
-            <td>{{screen._id.systems}}</td>
             <td><a [href]="'#'+screen._id.title">{{screen._id.title}}</a></td>
-
+            <td width="70%">{{screen._id.systems}}</td>
 
           </tr>
 
@@ -244,37 +244,39 @@
         </div>
       </div>
     </div>
-    <div style="margin-bottom: 10px" *ngIf="screen._id.tools!=''">
-      <div >
-      <h4>Tool </h4>
+
+      <div style="margin-bottom: 10px" *ngIf="screen._id.tools!=''" >
+        <h4>Tool </h4>
         <div><ul><li style="color: black" *ngFor="let tool of screen._id.tools;let i=index"><a >{{tool}}</a></li>
         </ul>
         </div>
-    </div>
-    <div style="margin-bottom: 10px" *ngIf="screen._id.systems!=''">
-      <div >
+      </div>
+
+      <div style="margin-bottom: 10px" *ngIf="screen._id.systems!=''" >
         <h4>system </h4>
         <div><ul><li style="color: black" *ngFor="let sys of screen._id.systems;let i=index"><a >{{sys}}</a></li>
         </ul>
         </div>
       </div>
-    </div>
-    <div>
-      <h4 style="margin-bottom: 10px">Evidence</h4>
-      <img *ngIf="screen._id.screenshot" style="width:60%;height: 40%" [src]="'http://localhost:8050/'+screen._id.screenshot">
 
+
+    <div *ngIf="screen._id.screenshot">
+      <h4 style="margin-bottom: 10px">Evidence</h4>
+      <img  style="width:60%;height: 40%" [src]="baseUrl+screen._id.screenshot">
     </div>
-  </div>
   </div>
 </div>
   <div *ngIf="sel==true" style="text-align: center;margin-bottom: 20px">
-    <h2  style="color: black">Score: {{score[0].Score }}</h2>
+    <h2  style="color: black">MASVS Compliance Score ( / 5): {{score[0].Score }}</h2>
   </div>
-  <div id="chartContainer2" style="width:640px; height: 400px;margin-right: auto;margin-left: auto;margin-bottom: 30px"></div>
+
+  <h1 style="color: black;margin-bottom: 20px;margin-left: 20px" >masvs compliance diagram
+  </h1>
+  <div id="chartContainer2" style="width:640px; height: 400px;margin-bottom: 30px;margin-top: 20px;margin-left: 20px"></div>
 <div style="margin-right: 20px;margin-left: 20px;margin-bottom: 20px">
-  <h2 style="margin-right: auto;margin-left: auto;margin-bottom: 10px;color: black" >masvs compliance table
-  </h2>
-  <table id="table" class="table">
+  <h1 style="margin-right: auto;margin-left: auto;color: black;margin-bottom: 20px" >Masvs Compliance Table
+  </h1>
+  <table style="margin-top: 20px" id="table" class="table">
     <thead style="background-color: #d1d1c7;color: white" class="thead-dark">
     <tr>
       <th style="color: white" width="33%"></th>
@@ -294,8 +296,9 @@
     </tr>
     </tbody>
   </table>
-
-  <table  class="table">
+  <h1 style="margin-right: auto;margin-left: auto;color: black" >Requirement Status
+  </h1>
+  <table style="margin-top: 20px"  class="table">
     <thead  style="background-color: #d1d1c7;color: white" class="thead-dark">
     <tr >
       <th style="color: white" width="5%" >ID</th>
@@ -313,8 +316,8 @@
       <td   width=33%>{{tst.requ_desctiption}}</td>
 
       <td width="12%" >
-        <h5 *ngIf="tst.requRes_pass===true">Pass</h5>
-        <h5 *ngIf="tst.requRes_pass===false">Fail</h5>
+        <h5 style="background: rgba(71,151,76,0.88)" *ngIf="tst.requRes_pass===true">Pass</h5>
+        <h5 style="background: #bf2e28" *ngIf="tst.requRes_pass===false">Fail</h5>
         <h5 *ngIf="tst.requRes_pass===null">N/A</h5>
       </td>
 
