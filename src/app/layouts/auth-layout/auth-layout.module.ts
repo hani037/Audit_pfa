@@ -8,23 +8,17 @@ import { HttpClientModule } from '@angular/common/http';
 import {AuthLayoutComponent} from './auth-layout.component'
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
-import { RapportComponent } from './rapport/rapport.component';
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {HighchartsChartModule} from "highcharts-angular";
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forChild(AuthLayoutRoutes),
-        FormsModule,
-        HttpClientModule,
-        NgbModule,
-        MatProgressSpinnerModule,
-        HighchartsChartModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(AuthLayoutRoutes),
+    FormsModule,
+    HttpClientModule,
+    NgbModule
+  ],
   declarations: [
     LoginComponent,
-    SignUpComponent,
-    RapportComponent
+    SignUpComponent
   ],
   bootstrap:[AuthLayoutComponent],
 })

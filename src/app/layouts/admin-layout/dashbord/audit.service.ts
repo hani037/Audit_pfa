@@ -7,31 +7,12 @@ import {concatMap, map, switchMap, tap} from "rxjs/operators";
 import {screenshot} from "../images/images.component";
 import {audit_1, audit_2} from "./dashbord.component";
 import {FormArray} from "@angular/forms";
-import {environment} from "../../../../environments/environment";
 export interface level {
   _id:string,
   requ:
     {requ_id: string, level: string, requ_rank: number, requ_desctiption:string}[]
 }
-export interface fail_image {
-  _id:{
-    audit_id: string,
-    title:string;
-    description: string,
-    family_name: string[],
-    family_rank: number,
-    references: string,
-    remedation: string,
-    requ_rank: number,
-    risk: string,
-    screenshot_id: string,
-    screenshot: string,
-    systems: string[],
-    tools:string[],
-    cvss:string,
-}
 
-}
 export interface photo {
   _id:{
     family_name: string,
@@ -61,7 +42,6 @@ export interface photo {
 })
 
 export class AuditService {
-  baseUrl = environment.baseUrl;
   public terminate=new Subject();
   public created=new Subject();
   public created_Audit=new Subject();
@@ -83,7 +63,7 @@ export class AuditService {
 
     this.http.post<{user_id:string,_id:string,level:string}>
 
-    (this.baseUrl+'audit',audit).pipe(
+    ('http://localhost:8050/audit',audit).pipe(
       concatMap(data=>{
         console.log(data);
         return  this.save_audit(data._id,data.level,false);
@@ -136,18 +116,18 @@ export class AuditService {
   public async getlevels() {
     const level = this.get_audit().level;
     if (level.split('+')[0] == 'L1' && level.split('+')[1] == 'R') {
-      this.L_levels= await this.http.get<level[]>(this.baseUrl +'get_L1').toPromise();
-      this.R_levels= await this.http.get<level[]>(this.baseUrl+'get_R').toPromise();
+      this.L_levels= await this.http.get<level[]>('http://localhost:8050/get_L1').toPromise();
+      this.R_levels= await this.http.get<level[]>('http://localhost:8050/get_R').toPromise();
       this.terminate.next(true);
     } else if (level.split('+')[0] == 'L2' && level.split('+')[1] == 'R') {
-      this.L_levels= await this.http.get<level[]>(this.baseUrl+'get_L2').toPromise();
-      this.R_levels= await this.http.get<level[]>(this.baseUrl+'get_R').toPromise();
+      this.L_levels= await this.http.get<level[]>('http://localhost:8050/get_L2').toPromise();
+      this.R_levels= await this.http.get<level[]>('http://localhost:8050/get_R').toPromise();
       this.terminate.next(true);
     } else if(level.split('+')[0]=='L1') {
-      this.L_levels= await this.http.get<level[]>(this.baseUrl+'get_L1').toPromise();
+      this.L_levels= await this.http.get<level[]>('http://localhost:8050/get_L1').toPromise();
       this.terminate.next(true);
     }else {
-      this.R_levels= await this.http.get<level[]>(this.baseUrl+'get_L2').toPromise();
+      this.R_levels= await this.http.get<level[]>('http://localhost:8050/get_L2').toPromise();
       this.terminate.next(true);
     }
     return this.terminate;
@@ -180,32 +160,29 @@ export class AuditService {
     }
   }
   public async createreq(id:string) {
-    const a= await this.http.post<{}>(this.baseUrl +'requRes',{requ_id:id,audit_id:this.get_audit().id}).toPromise();
+    const a= await this.http.post<{}>('http://localhost:8050/requRes',{requ_id:id,audit_id:this.get_audit().id}).toPromise();
   }
   public open_audit(_id,level,close){
     this.save_audit(_id,level,close).subscribe(data=>this.created_Audit.next(true));
     this.router.navigate(['security_req']);
   }
   public  delete_audit(_id){
-   return  this.http.get<screenshot>(this.baseUrl+`screenshotByAudit/${_id}`).pipe(concatMap( data=>{
+   return  this.http.get<screenshot>(`http://localhost:8050/screenshotByAudit/${_id}`).pipe(concatMap( data=>{
 
      console.log(data.Screenshot)
      if (data.Screenshot.length>=1){
         console.log("aa")
        for (let i=0;i<data.Screenshot.length;i++){
-          this.http.delete(this.baseUrl+`screenshotDelete/${data.Screenshot[i]._id}`).subscribe(data=>
+          this.http.delete(`http://localhost:8050/screenshotDelete/${data.Screenshot[i]._id}`).subscribe(data=>
           console.log(data));
          }
        }
          this.delete_rep(_id);
-        return this.http.delete(this.baseUrl+`deleteAudit/${_id}`)}));
+        return this.http.delete(`http://localhost:8050/deleteAudit/${_id}`)}));
 
   }
   public get_screenshots(){
-    return  this.http.get<photo[]>(this.baseUrl+`screenshotGrouped/${this.get_audit().id}`);
-  }
-  public get_fail_screenshots(){
-    return  this.http.get<fail_image[]>(this.baseUrl+`screenshotFailOnly/${this.get_audit().id}`);
+    return  this.http.get<photo[]>(`http://localhost:8050/screenshotGrouped/${this.get_audit().id}`);
   }
   public delete(){
     localStorage.removeItem('audit');
@@ -216,7 +193,7 @@ export class AuditService {
     console.log("tt")
     for (let i=0;i<representative_name.length;i++){
       console.log("bb")
-      this.http.post<{}>(this.baseUrl+'rep',{name:representative_name.value[i],
+      this.http.post<{}>('http://localhost:8050/rep',{name:representative_name.value[i],
         title:representative_title.value[i],phone:representative_phone.value[i],org:representative_org.value[i],
         email:representative_email.value[i],audit_id:this.get_audit().id}).subscribe(data=>{
           console.log("aa")
@@ -226,7 +203,7 @@ export class AuditService {
 
 }
  public  async delete_rep(id){
-   await this.http.delete(this.baseUrl+`deleteAuditRep/${id}`).toPromise();
+   await this.http.delete(`http://localhost:8050/deleteAuditRep/${id}`).toPromise();
 }
 
 }

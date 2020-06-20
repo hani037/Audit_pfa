@@ -2,11 +2,9 @@
 <mat-dialog-content  >
   <div  style="position: absolute;top: 32px;"  *ngIf="imageUrl&&sel!==2" class="column text-center">
     <figure class="image is-128x128">
-      <button *ngIf="_edit==true" style="position: absolute;left: 0px;color: #000000;padding: 0px" class="btn btn-secondary ">      <i (click)="input.click()"  class="fas fa-edit fa-3x "></i>
+      <button *ngIf="_edit==true" style="position: absolute;right: 0px;color: #000000;padding: 0px" class="btn btn-secondary ">      <i (click)="input.click()"  class="fas fa-edit fa-3x "></i>
       </button>
-      <button *ngIf="_edit==true" style="position: absolute;right: 0px;color: #000000;padding: 0px" class="btn btn-secondary ">      <i (click)="delete_only_image(image._id)"  class="fas fa-trash-alt fa-3x "></i>
-      </button>
-      <input  ngModel accept="image/*" #input  class="form-control" style="background-color: green;color: grey;width: 60px;display: none" #myInput1 type="file" name="image" (change)="selectImage1($event,input.files[0])" />
+      <input  ngModel accept="image/*" #input required class="form-control" style="background-color: green;color: grey;width: 60px;display: none" #myInput1 type="file" name="image" (change)="selectImage1($event,input.files[0])" />
 
       <img  height="150" width="150" [src]="imageUrl" />
     </figure>
@@ -17,10 +15,9 @@
     <div class="card-body">
 
   <div *ngIf="sel!=1&&sel!=2">
-    <div style="width: 500px" >
-      <label *ngIf="!auditService.audit_is_closing()" class="btn-secondary btn btn-fill btn-block" (click)="myInput.click()" >Add evidence with image </label>
-      <label *ngIf="!auditService.audit_is_closing()" class="btn-secondary btn btn-fill btn-block" (click)="without_image()" >Add evidence without image </label>
-      <input  ngModel accept="image/*" #input  class="form-control" style="background-color: green;color: grey;width: 60px;display: none" #myInput type="file" name="image" (change)="selectImage($event,input.files[0])" />
+    <div >
+      <label *ngIf="!auditService.audit_is_closing()" class="btn-secondary btn btn-fill btn-block" (click)="myInput.click()" >Add evidence </label>
+      <input  ngModel accept="image/*" #input required class="form-control" style="background-color: green;color: grey;width: 60px;display: none" #myInput type="file" name="image" (change)="selectImage($event,input.files[0])" />
       <button (click)="sel=2" [disabled]="!image" class="btn-secondary btn btn-fill btn-block">View evidence</button>
 
     </div>
@@ -35,68 +32,18 @@
 
 
 
-      <form *ngIf="_edit==true"  action="" method="post"   #f="ngForm" class="login-form" ngNativeValidate>
+      <form *ngIf="_edit==true"  action="" method="post" (ngSubmit)="submit_edit(f)"  #f="ngForm" class="login-form" ngNativeValidate>
         <div class="input-group">
-          <input (change)="update_title(title.value,image._id)" class="input--style-3"  [ngModel]="image.title" #title="ngModel" type="text"  required placeholder="title" name="title">
-        </div>
-        <div class="input-group">
-          <input class="input--style-3" (change)="update_description(description.value,image._id)" [ngModel]="image.description" #description="ngModel" type="text"  required placeholder="description" name="description">
-        </div>
-        <div  class="input-group">
-          <input class="input--style-3" (change)="update_Remedation(remediation.value,image._id)" [ngModel]="image.remedation" #remediation="ngModel" type="text"   placeholder="remedy" name="remediation">
-        </div>
-        <div *ngIf="data.pass==false" >
-          <label style="color: #d6d6d6;font-size: 17px">CVSS</label>
-          <select required (change)="update_Cvss(CVSS.value,image._id)" style="color:black;border-color: white" name="CVSS" [ngModel]="image.cvss" #CVSS="ngModel" type="text"  class="form-control">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-            <option value="Information">Information</option>
-          </select>
-        </div>
-        <div *ngIf="data.pass==false" class="input-group">
-          <input (change)="update_Risk(risk.value,image._id)" class="input--style-3" [ngModel]="image.risk" #risk="ngModel" type="text"   placeholder="risk" name="risk">
-        </div>
-        <div *ngFor="let control of references.controls; index as i" class="input-group">
-          <input (change)="update_references(references.value,image._id)" class="input--style-3 js-datepicker" type="text" placeholder="reference"  [formControl]="references.controls[i]">
-          <i style="position: absolute;right: 0;top: 10px" (click)="addreference()" class="fas fa-plus-circle"></i>
-        </div>
-        <div *ngFor="let control of system.controls; index as i" class="input-group">
-          <input (change)="update_systems(system.value,image._id)" class="input--style-3 js-datepicker" type="text" placeholder="system"  [formControl]="system.controls[i]">
-          <i style="position: absolute;right: 0;top: 10px" (click)="addsystem()" class="fas fa-plus-circle"></i>
-        </div>
-        <div *ngFor="let control of tool.controls; index as i" class="input-group">
-          <input (change)="update_tools(tool.value,image._id)" class="input--style-3 js-datepicker" type="text" placeholder="tool"  [formControl]="tool.controls[i]">
-          <i style="position: absolute;right: 0;top: 10px" (click)="addtool()" class="fas fa-plus-circle"></i>
-        </div>
-
-        <button (click)="input.click()"  *ngIf="!image.path" style="margin-bottom: 5px"  type="button"  class="btn btn-block btn-fill btn-danger">add image</button>
-        <input (change)="update_title(title.value,image._id)"  ngModel accept="image/*" #input  class="form-control" style="background-color: green;color: grey;width: 60px;display: none"  type="file" name="image" (change)="selectImage1($event,input.files[0])" />
-        <button mat-dialog-close="" style="margin-bottom: 5px"  type="button"  class="btn btn-block btn-fill btn-danger">close</button>
-
-      </form>
-
-      <form *ngIf="_edit==false&&is_without_image==true"  action="" method="post"   #f="ngForm" class="login-form" ngNativeValidate>
-        <div class="input-group">
-          <input class="input--style-3" ngModel #title="ngModel" type="text"  required placeholder="title" name="title">
+          <input class="input--style-3"  [ngModel]="image.title" #title="ngModel" type="text"  required placeholder="title" name="title">
         </div>
         <div class="input-group">
-          <input class="input--style-3" ngModel #description="ngModel" type="text"  required placeholder="description" name="description">
+          <input class="input--style-3" [ngModel]="image.description" #description="ngModel" type="text"  required placeholder="description" name="description">
         </div>
         <div class="input-group">
-          <input class="input--style-3" ngModel #remediation="ngModel" type="text"   placeholder="remedy" name="remediation">
+          <input class="input--style-3" [ngModel]="image.remedation" #remediation="ngModel" type="text"  required placeholder="remediation" name="remediation">
         </div>
-        <div *ngIf="data.pass==false"  >
-          <label style="color: #d6d6d6;font-size: 17px">CVSS</label>
-          <select required  style="color:black;border-color: white" name="CVSS" ngModel #CVSS="ngModel" type="text"  class="form-control">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-            <option value="Information">Information</option>
-          </select>
-        </div>
-        <div *ngIf="data.pass==false"  class="input-group">
-          <input class="input--style-3" ngModel #risk="ngModel" type="text"   placeholder="risk" name="risk">
+        <div class="input-group">
+          <input class="input--style-3" [ngModel]="image.risk" #risk="ngModel" type="text"  required placeholder="risk" name="risk">
         </div>
         <div *ngFor="let control of references.controls; index as i" class="input-group">
           <input class="input--style-3 js-datepicker" type="text" placeholder="reference"  [formControl]="references.controls[i]">
@@ -112,10 +59,11 @@
         </div>
 
 
-        <button (click)="submit_without_image(f)"  mat-dialog-close style="margin-bottom: 30px"  type="submit" [disabled]="f.invalid" class="btn btn-block btn-fill btn-danger">submit</button>
+        <button  mat-dialog-close style="margin-bottom: 30px"  type="submit" [disabled]="f.invalid||system.invalid||references.invalid||tool.invalid" class="btn btn-block btn-fill btn-danger">submit</button>
       </form>
 
-      <form *ngIf="_edit==false&&is_without_image==false"  action="" method="post"  #f="ngForm" class="login-form" ngNativeValidate>
+
+      <form *ngIf="_edit==false"  action="" method="post" (ngSubmit)="submit(f)"  #f="ngForm" class="login-form" ngNativeValidate>
               <div class="input-group">
                 <input class="input--style-3" ngModel #title="ngModel" type="text"  required placeholder="title" name="title">
               </div>
@@ -123,19 +71,10 @@
                 <input class="input--style-3" ngModel #description="ngModel" type="text"  required placeholder="description" name="description">
               </div>
             <div class="input-group">
-              <input class="input--style-3" ngModel #remediation="ngModel" type="text"   placeholder="remedy" name="remediation">
+              <input class="input--style-3" ngModel #remediation="ngModel" type="text"  required placeholder="remediation" name="remediation">
             </div>
-           <div *ngIf="data.pass==false"  >
-          <label style="color: #d6d6d6;font-size: 17px">CVSS</label>
-          <select required  style="color:black;border-color: white" name="CVSS" ngModel #CVSS="ngModel" type="text"  class="form-control">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-            <option value="Information">Information</option>
-          </select>
-             </div>
-            <div *ngIf="data.pass==false"  class="input-group">
-            <input class="input--style-3" ngModel #risk="ngModel" type="text"   placeholder="risk" name="risk">
+            <div class="input-group">
+            <input class="input--style-3" ngModel #risk="ngModel" type="text"  required placeholder="risk" name="risk">
              </div>
             <div *ngFor="let control of references.controls; index as i" class="input-group">
               <input class="input--style-3 js-datepicker" type="text" placeholder="reference"  [formControl]="references.controls[i]">
@@ -151,7 +90,7 @@
             </div>
 
 
-            <button (click)="submit(f)"  mat-dialog-close style="margin-bottom: 30px"  type="submit" [disabled]="f.invalid" class="btn btn-block btn-fill btn-danger">submit</button>
+            <button  mat-dialog-close style="margin-bottom: 30px"  type="submit" [disabled]="f.invalid||system.invalid||references.invalid||tool.invalid" class="btn btn-block btn-fill btn-danger">submit</button>
           </form>
 
 
@@ -167,9 +106,9 @@
 
 
             <div>
-              <div *ngIf="image.path">
+              <div>
                 <figure class="image is-128x128 container">
-                  <img  style="width: 520px;height: 300px" [src]="baseUrl+image.path" [alt]="baseUrl+image.path" />
+                  <img  style="width: 520px;height: 300px" [src]="'http://localhost:8050/'+image.path" alt="'http://localhost:8050/'+image.path" />
                   <div style="position: absolute;bottom: 0;right: 0">
                     <button *ngIf="!auditService.audit_is_closing()" (click)="edit()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #00004d;" class="  btn btn-secondary" >edit</button>
                     <button *ngIf="!auditService.audit_is_closing()" mat-dialog-close (click)="delete()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #a20000" class="  btn btn-danger" >delete</button>
@@ -177,11 +116,6 @@
                   </div>
 
                 </figure>
-              </div>
-              <div *ngIf="!image.path">
-                <button *ngIf="!auditService.audit_is_closing()" (click)="edit()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #00004d;" class="  btn btn-secondary" >edit</button>
-                <button *ngIf="!auditService.audit_is_closing()" mat-dialog-close (click)="delete()" style="width: 70px;margin-right: 10px;padding: 10px;background-color: #a20000" class="  btn btn-danger" >delete</button>
-
               </div>
               <div style="margin-bottom: 0px" >
                 <div >
@@ -197,35 +131,31 @@
                       <td >{{image.description}} </td>
 
                     </tr>
-                    <tr *ngIf="image.risk">
-                      <th>risk</th>
+                    <tr>
+                      <th >risk</th>
                       <td >{{image.risk}}</td>
 
                     </tr>
-                    <tr *ngIf="image.tools!=''">
+                    <tr>
                       <th >tools</th>
                       <td>{{image.tools}}</td>
                     </tr>
-                    <tr *ngIf="image.systems!=''">
-                      <th  >systems</th>
+                    <tr>
+                      <th >systems</th>
                       <td >{{image.systems}}</td>
 
                     </tr>
-                    <tr *ngIf="image.references!=''">
+                    <tr>
                       <th >references</th>
                       <td >{{image.references}}</td>
 
                     </tr>
-                    <tr *ngIf="image.remedation!=''">
-                      <th >remedy</th>
+                    <tr>
+                      <th >remediation</th>
                       <td >{{image.remedation}}</td>
 
                     </tr>
-                    <tr *ngIf="image.cvss">
-                      <th  >CVSS</th>
-                      <td >{{image.cvss}}</td>
 
-                    </tr>
 
                   </table>
                 </div>

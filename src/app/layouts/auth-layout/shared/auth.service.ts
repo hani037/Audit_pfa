@@ -2,14 +2,12 @@ import { Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, from, Subject} from 'rxjs';
 import { User } from './user.model';
-import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   public user :User;
-  baseUrl = environment.baseUrl;
   public notification =new Subject<boolean>();
   get userIsAuthenticated() {
     if (this.user){
@@ -53,11 +51,11 @@ export class AuthService {
     return true;
   }
   public signup( el: string, pass: string) {
-    return this.http.put<{message: string}>(this.baseUrl+'signup', {email: el, password: pass});
+    return this.http.put<{message: string}>('http://localhost:8050/signup', {email: el, password: pass});
   }
 
   public login(el: string, pass: string) {
-    return this.http.post<{userId: string, token: string, message: string,email:string}>(this.baseUrl+'login',
+    return this.http.post<{userId: string, token: string, message: string,email:string}>('http://localhost:8050/login',
       {email: el, password: pass});
   }
 
