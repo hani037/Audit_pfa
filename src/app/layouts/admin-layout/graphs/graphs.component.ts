@@ -11,6 +11,8 @@ import {result} from "../security-req/security-req.component";
 import {audit} from "../history/history.component";
 import {RequestService} from "../security-req/request.service";
 import {score} from "../security-req/score.model";
+import {Route, Router} from "@angular/router";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-graphs',
@@ -22,10 +24,11 @@ export class GraphsComponent implements OnInit {
   private dataURL2: string;
   private audit:audit;
   private score:score[];
+  baseUrl = environment.baseUrl;
   screenshot:photo[];
   private sel=false;
   constructor(@Inject(MAT_DIALOG_DATA) public data:{graph:result[],test:test[],pass:result[],fail:result[]},private requestService:RequestService
-              ,private auditService:AuditService) {
+              ,private auditService:AuditService,private route:Router) {
 
   }
 
@@ -311,7 +314,7 @@ export class GraphsComponent implements OnInit {
       }
 
       for (let j=0;j<this.screenshot[i].ScreenshotsOfOneRequRes.length;j++) {
-        await this.getBase64ImageFromUrl('http://localhost:8050/' + this.screenshot[i].ScreenshotsOfOneRequRes[j].screenshot)
+        await this.getBase64ImageFromUrl(this.baseUrl  + this.screenshot[i].ScreenshotsOfOneRequRes[j].screenshot)
           .then(result => {
 
 
