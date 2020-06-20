@@ -19,7 +19,6 @@
       </div>
     </div>
     <span class="help-block" *ngIf="!password.valid && password.touched">Please enter a valid password!</span>
-    <button style="margin-left: auto;margin-right: auto" class="btn btn-danger btn-fill btn-block " mat-button mat-dialog-close>Cancel</button>
     <button type="submit" [disabled]="f.invalid" style="margin-left: auto;margin-right: auto" class="btn btn-success btn-fill btn-block " mat-button >login</button>
     <button style="margin-left: auto;margin-right: auto;color: cornflowerblue" (click)="signup()" class="btn btn-outline-info  btn-block " mat-button mat-dialog-close>sign-up</button>
     <span class="help-block" *ngIf="message">{{message}}</span>
