@@ -9,7 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuditService} from '../dashbord/audit.service';
 import {RequestService} from './request.service';
 import {test} from './test.model';
-import {ImagesComponent} from '../images/images.component';
+import {ImagesComponent, screenshot} from '../images/images.component';
 import {CommentComponent} from '../comment/comment.component';
 export interface result {
   y:number,
@@ -22,6 +22,7 @@ export interface result {
 })
 export class SecurityReqComponent implements OnInit {
   isloading=true;
+  screenshots:screenshot;
   tests:test[];
   test:test;
   i=0;
@@ -42,6 +43,7 @@ export class SecurityReqComponent implements OnInit {
     this.selected_level= parsedData.level;
     this.sel=true;
     }
+
       this.requestService.dialog_close.subscribe(data=>{
 
       this.gettest();
@@ -98,9 +100,9 @@ export class SecurityReqComponent implements OnInit {
       duration: 1500
     });
   }
-  public images(id){
+  public images(id,pass){
     this.dialog.open(ImagesComponent,{backdropClass: 'backdropBackground', // This is the "wanted" line
-      data:{id}});
+      data:{id,pass}});
   }
   public Cancel() {
     this.router.navigate(['/home']);
@@ -114,11 +116,26 @@ export class SecurityReqComponent implements OnInit {
     })
   }
 
-  change_pass($event,id) {
-    this.requestService.update_pass($event.srcElement.value,id).subscribe(data=>{
-      this.gettest();
-      this.requestService.ischanged.next("true");
-    });
+  async change_pass($event,id,value,index) {
+    this.screenshots=await this.requestService.get_image(id).toPromise();
+    if(this.screenshots.Screenshot.length>0){
+      if(confirm("if u change the status all the evidences will be deleted  ")) {
+        this.requestService.update_pass($event.srcElement.value, id).subscribe(data => {
+          this.requestService.delete_evidences_by_requ(id);
+          this.gettest();
+          this.requestService.ischanged.next("true");
+        });
+      }else {
+
+        this.gettest();
+      }
+    }else {
+      this.requestService.update_pass($event.srcElement.value, id).subscribe(data => {
+        this.gettest();
+      });
+      }
+
+
   }
 
   left() {
@@ -157,7 +174,12 @@ export class SecurityReqComponent implements OnInit {
   close_audit() {
     if(confirm("Are you sure to close the audit ")) {
 
-      this.requestService.close_audit();
+      this.requestService.close_audit().subscribe(date=>{
+        this.auditService.close_date();
+        this.MatSnack.open( 'Closed', 'cancel', {
+          duration: 1500
+        });
+      });
     }
   }
 }

@@ -2,12 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01f128e3-bb1c-4e7f-827f-8d256db7db1b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/navbar/navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/admin-layout/dashbord/audit.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/admin-layout/dashbord/audit.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layouts/admin-layout/graphs/graphs.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/admin-layout/graphs/graphs.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layouts/admin-layout/images/images.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/admin-layout/images/images.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/admin-layout/images/images.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/admin-layout/images/images.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/admin-layout/security-req/request.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/admin-layout/security-req/request.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layouts/admin-layout/security-req/security-req.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/admin-layout/security-req/security-req.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/admin-layout/security-req/security-req.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/admin-layout/security-req/security-req.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/admin-layout/test/test.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/admin-layout/test/test.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/admin-layout/test/test.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/admin-layout/test/test.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/auth-layout/auth-layout.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/auth-layout/auth-layout.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/auth-layout/rapport/rapport.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/auth-layout/rapport/rapport.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/auth-layout/rapport/rapport.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/auth-layout/rapport/rapport.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layouts/auth-layout/shared/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layouts/auth-layout/shared/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environments/environment.prod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/environments/environment.prod.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/environments/environment.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +129,15 @@
       <workItem from="1591797649480" duration="7086000" />
       <workItem from="1591823392224" duration="12314000" />
       <workItem from="1591897066083" duration="11619000" />
-      <workItem from="1591916654321" duration="775000" />
+      <workItem from="1591916654321" duration="1482000" />
+      <workItem from="1591979883967" duration="3686000" />
+      <workItem from="1592056148001" duration="14458000" />
+      <workItem from="1592091608917" duration="10248000" />
+      <workItem from="1592145859581" duration="22578000" />
+      <workItem from="1592228347274" duration="8641000" />
+      <workItem from="1592344435859" duration="1458000" />
+      <workItem from="1592349185202" duration="4840000" />
+      <workItem from="1592516178591" duration="4563000" />
     </task>
     <servers />
   </component>

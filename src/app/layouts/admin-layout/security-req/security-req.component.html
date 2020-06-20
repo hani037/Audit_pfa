@@ -1,7 +1,8 @@
 
 <div style="margin-bottom: 0" class="content"   >
+
   <!--    Change the image source '/images/default.jpg' with your favourite image.     -->
-  <h1 style="color: rgb(255,255,255)" *ngIf="sel===true"> <u style="color: rgba(255,255,255,0.73);text-shadow: 1px 1px ">level of verification: {{selected_level}} </u> </h1>
+  <h1 style="color: rgb(255,255,255);text-shadow: 1px 1px " *ngIf="sel===true"> level of verification: {{selected_level}} </h1>
 
 
   <!--   You can change the black color for the filter with those colors: blue, green, red, orange       -->
@@ -26,7 +27,7 @@
       </div>
     </div>
     <h4 mat-dialog-title style="color: #bbbae9;margin-bottom: 10px;margin-top: 10px" class="text-center">
-      <u > {{title}}</u>    </h4>
+      {{title}}  </h4>
     <div  style="display: flex">
       <div  style="flex: 1;margin-right: 10px;margin-top: auto;margin-bottom: auto">   <i   (click)="left()" style="color: whitesmoke;cursor: pointer"   class=" fa fa-angle-left fa-5x "></i>
       </div>
@@ -52,12 +53,12 @@
 
 
               <tbody *ngIf="!isloading" >
-              <tr  *ngFor="let tst of test.requ" >
+              <tr  *ngFor="let tst of test.requ;let i=index" >
                 <td width="5%">{{test._id.family_rank}}.{{tst.requ_rank}}</td>
                 <td width="10%">MSTG-{{test._id.family_name}}-{{tst.requ_rank}} </td>
                 <td   width=33%>{{tst.requ_desctiption}}</td>
                 <td width="12%" *ngIf="!auditService.audit_is_closing()">
-                  <select class="form-control" style="border-color: white" (change)="change_pass($event,tst.requRes_id)" [value]="tst.requRes_pass" >
+                  <select class="form-control" style="border-color: white" (change)="change_pass($event,tst.requRes_id,tst.requRes_pass,i)" [value]="tst.requRes_pass" >
                     <option style="background-color: white;color: #2c343b" value="null">N/A</option>
                     <option style="background-color: white;color: #2c343b"value="true">Pass</option>
                     <option  style="background-color: white;color: #2c343b"value="false">Fail</option>
@@ -74,8 +75,8 @@
                     #fileInput>
                   <button class="btn-block btn-fill btn btn-success" (click)="fileInput.click()">save</button>
                   -->
-                  <button style="width: 95px;margin-right: 10px;padding: 10px;"  class=" btn-fill btn btn-secondary" (click)="info(tst.requ_procedure)" >procedures</button>
-                  <button style="width: 88px;margin-right: 10px;padding: 10px;"  class=" btn-fill btn btn-info" (click)="images(tst.requRes_id)" >evidences</button>
+                  <button  style="width: 95px;margin-right: 10px;padding: 10px;"  class=" btn-fill btn btn-secondary" (click)="info(tst.requ_procedure)" >procedures</button>
+                  <button [disabled]="tst.requRes_pass==null" style="width: 88px;margin-right: 10px;padding: 10px;"  class=" btn-fill btn btn-info" (click)="images(tst.requRes_id,tst.requRes_pass)" >evidences</button>
                   <button  style="width: 100px;margin-right: 10px;padding: 10px;" class=" btn-fill btn btn-danger" (click)="change_commentaire(tst.requRes_id)" >Conclusion</button>
                 </td>
               </tr>
@@ -471,6 +472,7 @@
   <div class="text-center"  *ngIf="!auditService.audit_is_closing()">
     <button style="margin-right: 10px" (click)="submit()"  class="btn-info btn-fill btn  "> Diagrams</button>
     <button  (click)="close_audit()"  class="btn-danger btn-fill btn  "> Close Audit</button>
+
 
   </div>
   <div class="text-center" *ngIf="auditService.audit_is_closing()" >
