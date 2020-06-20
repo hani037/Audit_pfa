@@ -38,7 +38,7 @@
           <tr>
             <td>
               <div class="tdhead">
-                title
+                Title
               </div>
             </td>
             <td class="td-right">
@@ -48,7 +48,7 @@
           <tr>
             <td>
               <div class="tdhead">
-                level
+                Level
               </div>
             </td>
             <td class="td-right">
@@ -58,7 +58,7 @@
           <tr>
             <td>
               <div class="tdhead">
-                client name
+                Client Name
               </div>
             </td>
             <td class="td-right">
@@ -116,7 +116,7 @@
           <tr>
             <td>
               <div class="tdhead">
-                Application name
+                Application Name
               </div>
             </td>
             <td class="td-right">{{audit.Application_Name}}</td>
@@ -205,8 +205,8 @@
 
 
           <tr>
-            <th>id</th>
-            <th>title</th>
+            <th>ID</th>
+            <th>Title</th>
             <th width="70%">Systems</th>
 
           </tr>
@@ -227,7 +227,7 @@
 
 
     <div style="margin-bottom: 10px;margin-top: 10px">
-      <h4>description</h4><div>{{screen._id.description}}</div>
+      <h4>Description</h4><div>{{screen._id.description}}</div>
 
     </div>
     <div style="margin-bottom: 10px">    <h4>CVSS</h4><div>{{screen._id.cvss}}</div>
@@ -253,7 +253,7 @@
       </div>
 
       <div style="margin-bottom: 10px" *ngIf="screen._id.systems!=''" >
-        <h4>system </h4>
+        <h4>System </h4>
         <div><ul><li style="color: black" *ngFor="let sys of screen._id.systems;let i=index"><a >{{sys}}</a></li>
         </ul>
         </div>
@@ -270,7 +270,7 @@
     <h2  style="color: black">MASVS Compliance Score ( / 5): {{score[0].Score }}</h2>
   </div>
 
-  <h1 style="color: black;margin-bottom: 20px;margin-left: 20px" >masvs compliance diagram
+  <h1 style="color: black;margin-bottom: 20px;margin-left: 20px" >MASVS Compliance Diagram
   </h1>
   <div id="chartContainer2" style="width:640px; height: 400px;margin-bottom: 30px;margin-top: 20px;margin-left: 20px"></div>
 <div style="margin-right: 20px;margin-left: 20px;margin-bottom: 20px">
