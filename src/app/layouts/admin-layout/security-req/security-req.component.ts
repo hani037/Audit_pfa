@@ -132,6 +132,8 @@ export class SecurityReqComponent implements OnInit {
     }else {
       this.requestService.update_pass($event.srcElement.value, id).subscribe(data => {
         this.gettest();
+        this.requestService.ischanged.next("true");
+
       });
       }
 
