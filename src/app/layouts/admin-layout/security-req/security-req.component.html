@@ -471,13 +471,14 @@
   </div>
   <div class="text-center"  *ngIf="!auditService.audit_is_closing()">
     <button style="margin-right: 10px" (click)="submit()"  class="btn-info btn-fill btn  "> Diagrams</button>
+    <a   href="#/rapport" target="_blank" style="margin-left:10px;margin-right: 10px "   class="btn-secondary btn-fill btn  "> Report</a>
     <button  (click)="close_audit()"  class="btn-danger btn-fill btn  "> Close Audit</button>
 
 
   </div>
   <div class="text-center" *ngIf="auditService.audit_is_closing()" >
     <button (click)="submit()"  class="btn-info btn-fill btn   "> Diagrams</button>
-
+    <a   href="#/rapport" target="_blank" style="margin-left:10px;margin-right: 10px  "   class="btn-secondary btn-fill btn  "> Report</a>
   </div>
 
 </div>
