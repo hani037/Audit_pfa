@@ -84,7 +84,7 @@
     "highcharts-angular": "^2.4.0",
     "highcharts-exporting": "^0.1.7",
     "jquery": "^3.5.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.3",
     "ng-circle-progress": "^1.5.1",
     "ng2-charts": "^2.3.0",
